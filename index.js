@@ -204,10 +204,24 @@ const getPlayerInfo = async (userSlug) => {
   events.sort((a, b) => a.startAt - b.startAt);
 
   events.forEach(element => {
+    var noSolo = false;
     if(element.teamRosterSize) {
-      return; //skip this so that we can come back to it for 2v2s
+      if(element.teamRosterSize.maxPlayers == 2) {
+        for (let i = 0; i < events.length; i++) {
+          const solofind = events[i];
+          if(!solofind.teamRosterSize && solofind.tournament.id == element.tournament.id) {
+            return; //skip this so that we can come back to it for 2v2s
+          }
+        }
+      } else {
+        return;
+      }
+      noSolo = true; //entered a tournament only in doubles
     }
     if(element.slug.includes("squad")) { //no squad strike
+      return;
+    }
+    if(element.slug.includes("crew")) { //no crew battles
       return;
     }
     if(element.slug.includes("reverse")) { //no reverse mains
@@ -219,6 +233,11 @@ const getPlayerInfo = async (userSlug) => {
     if(element.slug.includes("hdr")) { //hdr isnt a different game on start.gg nor should it be listed on smasher pages (https://discord.com/channels/186707873789640705/186708155873492993/1121290628073005066)
       return;
     }
+
+    if(noSolo) {
+      console.log("DOUBLES W/O SINGLES: " + element.slug);
+    }
+    
     var tournamentLine = "";
     tournamentLine += "\n";
     tournamentLine += "|[https://start.gg/";
@@ -233,14 +252,19 @@ const getPlayerInfo = async (userSlug) => {
     tournamentLine += "||";
     tournamentLine += moment.unix(element.startAt).format('MMMM Do, YYYY');
     tournamentLine += "||";
-    try {
-      tournamentLine += getOrdinal(element.userEntrant.standing.placement);
-    } catch (err) {
-      console.log("Error in placement " + console.dir(element.userEntrant));
-      console.log(console.log(element.slug));
+
+    if(!noSolo) {
+      try {
+        tournamentLine += getOrdinal(element.userEntrant.standing.placement);
+      } catch (err) {
+        console.log("Error in placement " + console.dir(element.userEntrant));
+        console.log(console.log(element.slug));
+      }
+      tournamentLine += " / ";
+      tournamentLine += element.numEntrants;
+    } else {
+      tournamentLine += "&mdash;";
     }
-    tournamentLine += " / ";
-    tournamentLine += element.numEntrants;
     tournamentLine += "||";
 
     var twovtwo = false;
@@ -271,7 +295,7 @@ const getPlayerInfo = async (userSlug) => {
     tournamentLine += "\n|-";
     switch(element.videogame.displayName) {
       case "Super Smash Bros.":
-        tournamentResultMelee += tournamentLine;
+        tournamentResultSsb += tournamentLine;
         break;
       case "Melee":
         tournamentResultMelee += tournamentLine;
@@ -286,7 +310,7 @@ const getPlayerInfo = async (userSlug) => {
         tournamentResultPplus += tournamentLine;
         break;
       case "Super Smash Bros. for Nintendo 3DS":
-        tournamentResultWiiu += tournamentLine;
+        tournamentResultThreeds += tournamentLine;
         break;
       case "Super Smash Bros. for Wii U":
         tournamentResultWiiu += tournamentLine;
@@ -296,7 +320,7 @@ const getPlayerInfo = async (userSlug) => {
         break;
     
       default:
-        console.log("UNKNOWN GAME: " + element.videogame.displayName)
+        console.log("UNKNOWN GAME: " + element.videogame.displayName + " " + element.slug)
         break;
     }
   });
