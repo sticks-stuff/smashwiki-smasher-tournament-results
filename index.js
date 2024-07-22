@@ -127,6 +127,8 @@ tournamentResultSsb += ssb;
 tournamentResultSsb += "]]''===";
 tournamentResultSsb += "\n";
 tournamentResultSsb += "{|class=\"wikitable\" style=\"text-align:center\"";
+tournamentResultSsb += "\n!Tournament!!Date!!1v1 placement!!2v2 placement!!Partner\n";
+tournamentResultSsb += "|-";
 
 var tournamentResultMelee = "";
 tournamentResultMelee += "===''[[";
@@ -134,6 +136,8 @@ tournamentResultMelee += melee;
 tournamentResultMelee += "]]''===";
 tournamentResultMelee += "\n";
 tournamentResultMelee += "{|class=\"wikitable\" style=\"text-align:center\"";
+tournamentResultMelee += "\n!Tournament!!Date!!1v1 placement!!2v2 placement!!Partner\n";
+tournamentResultMelee += "|-";
 
 var tournamentResultBrawl = "";
 tournamentResultBrawl += "===''[[";
@@ -141,6 +145,8 @@ tournamentResultBrawl += brawl;
 tournamentResultBrawl += "]]''===";
 tournamentResultBrawl += "\n";
 tournamentResultBrawl += "{|class=\"wikitable\" style=\"text-align:center\"";
+tournamentResultBrawl += "\n!Tournament!!Date!!1v1 placement!!2v2 placement!!Partner\n";
+tournamentResultBrawl += "|-";
 
 var tournamentResultPm = "";
 tournamentResultPm += "===''[[";
@@ -148,6 +154,8 @@ tournamentResultPm += pm;
 tournamentResultPm += "]]''===";
 tournamentResultPm += "\n";
 tournamentResultPm += "{|class=\"wikitable\" style=\"text-align:center\"";
+tournamentResultPm += "\n!Tournament!!Date!!1v1 placement!!2v2 placement!!Partner\n";
+tournamentResultPm += "|-";
 
 var tournamentResultPplus = "";
 tournamentResultPplus += "===''[[";
@@ -155,6 +163,8 @@ tournamentResultPplus += pplus;
 tournamentResultPplus += "]]''===";
 tournamentResultPplus += "\n";
 tournamentResultPplus += "{|class=\"wikitable\" style=\"text-align:center\"";
+tournamentResultPplus += "\n!Tournament!!Date!!1v1 placement!!2v2 placement!!Partner\n";
+tournamentResultPplus += "|-";
 
 var tournamentResultWiiu = "";
 tournamentResultWiiu += "===''[[";
@@ -162,6 +172,8 @@ tournamentResultWiiu += wiiu;
 tournamentResultWiiu += "]]''===";
 tournamentResultWiiu += "\n";
 tournamentResultWiiu += "{|class=\"wikitable\" style=\"text-align:center\"";
+tournamentResultWiiu += "\n!Tournament!!Date!!1v1 placement!!2v2 placement!!Partner\n";
+tournamentResultWiiu += "|-";
 
 var tournamentResultThreeds = "";
 tournamentResultThreeds += "===''[[";
@@ -169,6 +181,8 @@ tournamentResultThreeds += threeds;
 tournamentResultThreeds += "]]''===";
 tournamentResultThreeds += "\n";
 tournamentResultThreeds += "{|class=\"wikitable\" style=\"text-align:center\"";
+tournamentResultThreeds += "\n!Tournament!!Date!!1v1 placement!!2v2 placement!!Partner\n";
+tournamentResultThreeds += "|-";
 
 var tournamentResultsUlti = "";
 tournamentResultsUlti += "===''[[";
@@ -176,6 +190,8 @@ tournamentResultsUlti += ulti;
 tournamentResultsUlti += "]]''===";
 tournamentResultsUlti += "\n";
 tournamentResultsUlti += "{|class=\"wikitable\" style=\"text-align:center\"";
+tournamentResultsUlti += "\n!Tournament!!Date!!1v1 placement!!2v2 placement!!Partner\n";
+tournamentResultsUlti += "|-";
 
 function escapeSpecialCaseChar(text) {
   text.replace(/[[\]{}*\\^|]/g, '\\$&');
@@ -289,9 +305,8 @@ const getPlayerInfo = async (userSlug) => {
       }
     }
     if(twovtwo == false) {
-      tournamentLine += "&mdash;||&mdash";
+      tournamentLine += "&mdash;||&mdash;";
     }
-    tournamentLine += ";";
     tournamentLine += "\n|-";
     switch(element.videogame.displayName) {
       case "Super Smash Bros.":
