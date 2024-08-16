@@ -194,8 +194,10 @@ tournamentResultsUlti += "\n!Tournament!!Date!!1v1 placement!!2v2 placement!!Par
 tournamentResultsUlti += "|-";
 
 function escapeSpecialCaseChar(text) {
-  text.replace(/[[\]{}*\\^|]/g, '\\$&');
-  text.replace("=", "{{=}}");
+  // text = text.replace(/[[\]{}*\\^|]/g, '\\$&');
+  text = text.replace("=", "{{=}}");
+  text = text.replace("[", "&#91;");
+  text = text.replace("]", "&#93;");
   return text.replace("|", "&#124;");
 }
 
